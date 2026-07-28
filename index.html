@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tri’s Shape Squad SMP - Season 3 Launch Countdown</title>
+    <style>
+        :root {
+            --bg-color: #1a1a2e;
+            --card-bg: #16213e;
+            --accent-color: #4e9f3d;
+            --text-color: #ffffff;
+            --muted-text: #b0b0b0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--text-color);
+            margin-bottom: 5px;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .countdown-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--accent-color);
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .time-box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 15px 10px;
+            border-radius: 10px;
+            min-width: 80px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .time-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            color: #ffffff;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            color: var(--muted-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .info-text {
+            font-size: 0.95rem;
+            color: var(--muted-text);
+            line-height: 1.5;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tri’s Shape Squad SMP</h1>
+        <h2>Season 3 Launch Countdown</h2>
+
+        <div class="countdown-card">
+            <div class="timer" id="launch-timer">
+                <div class="time-box"><span class="time-number" id="days">00</span><span class="time-label">Days</span></div>
+                <div class="time-box"><span class="time-number" id="hours">00</span><span class="time-label">Hours</span></div>
+                <div class="time-box"><span class="time-number" id="mins">00</span><span class="time-label">Mins</span></div>
+                <div class="time-box"><span class="time-number" id="secs">00</span><span class="time-label">Secs</span></div>
+            </div>
+            <div class="info-text">
+                Get ready for the Discord Stage stream and a brand new year-long adventure!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Exact Season 3 target timestamp from your announcement (converted to milliseconds)
+        const launchTimestamp = 1785630600 * 1000; 
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = launchTimestamp - now;
+
+            if (difference <= 0) {
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('mins').innerText = "00";
+                document.getElementById('secs').innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('mins').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('secs').innerText = seconds.toString().padStart(2, '0');
+        }
+
+        // Run immediately and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
