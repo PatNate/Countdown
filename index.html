@@ -151,8 +151,24 @@
 
     /* Responsiveness */
     @media (max-width:420px){
+      /* Make timer a two-column layout: Days | Hours on row 1, Mins | Secs on row 2 */
+      .timer{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        justify-content:center;
+        align-items:stretch;
+      }
+
+      /* Each box takes about 50% of the available width so they form two-per-row */
+      .time-box{
+        flex: 0 0 calc(50% - 10px);
+        min-width:0; /* allow shrinking below the previous min-width */
+        padding:10px;
+      }
+
+      /* Slightly smaller numbers on very small screens */
       .time-number{font-size:1.6rem}
-      .time-box{min-width:60px;padding:10px}
       header h1{font-size:1.6rem}
     }
   </style>
