@@ -1,182 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tri’s Shape Squad SMP - Season 3 Countdown</title>
-    <style>
-        :root {
-            --bg-color: #1a1a2e;
-            --card-bg: #16213e;
-            --accent-gold: #ffaa00; /* Server Gold */
-            --accent-green: #55ff55; /* Admin Green */
-            --text-color: #ffffff;
-            --muted-text: #b0b0b0;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tri’s Shape Squad SMP — Season 3 Countdown</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
+  <!-- Basic SEO / social preview -->
+  <meta name="description" content="Countdown to Tri's Shape Squad SMP Season 3 launch — Discord Stage stream and year-long adventure!" />
+  <meta property="og:title" content="Tri’s Shape Squad SMP — Season 3 Countdown" />
+  <meta property="og:description" content="Countdown to Tri's Shape Squad SMP Season 3 launch" />
+  <meta property="og:type" content="website" />
 
-        .container {
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
+  <style>
+    :root{
+      --bg:#1a1a2e;
+      --card:#16213e;
+      --gold:#ffaa00;
+      --green:#55ff55;
+      --text:#fff;
+      --muted:#b0b0b0;
+      --accent-shadow: rgba(0,0,0,.6);
+      --title-size: 2.4rem;
+      --anim-duration: 8s;
+    }
 
-        /* Animated Title Setup */
-        .server-title {
-            font-size: 2.6rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 0px #000000;
-            display: inline-block;
-        }
+    /* Reset & layout */
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg);
+      color:var(--text);
+    }
 
-        .server-title span {
-            display: inline-block;
-            animation: serverColorCycle 8s linear infinite;
-        }
+    .container{
+      width:100%;
+      max-width:680px;
+      text-align:center;
+      padding:20px;
+    }
 
-        /* Smooth continuous cycle matching the image sequence */
-        @keyframes serverColorCycle {
-            0%, 100% { color: #ff5555; }  /* Red */
-            25%      { color: #ffaa00; }  /* Gold/Orange */
-            50%      { color: #ffff55; }  /* Yellow */
-            75%      { color: #55ff55; }  /* Green */
-        }
+    header h1{
+      margin:0;
+      font-size:var(--title-size);
+      letter-spacing:1px;
+      display:inline-block;
+      text-shadow:2px 2px 0 #000;
+    }
 
-        /* Offsetting each word's animation to create a flowing gradient effect */
-        .word-1 span { animation-delay: 0s; }
-        .word-2 span { animation-delay: -1.5s; }
-        .word-3 span { animation-delay: -3s; }
-        .word-4 span { animation-delay: -4.5s; }
+    /* Animated title: keep animation-hints low-impact and respect prefers-reduced-motion */
+    .server-title{display:inline-flex; gap:.5ch; align-items:center}
+    .server-title .word{
+      display:inline-block;
+      animation:colorCycle var(--anim-duration) linear infinite;
+      will-change:color,opacity;
+    }
 
-        h2 {
-            color: var(--accent-green);
-            font-size: 1.3rem;
-            margin-top: 5px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 0px #000000;
-        }
+    @keyframes colorCycle{
+      0%,100%{color:#ff5555}
+      25%{color:var(--gold)}
+      50%{color:#ffff55}
+      75%{color:var(--green)}
+    }
 
-        .countdown-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 35px 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border: 2px solid var(--accent-gold);
-        }
+    /* Stagger words (use nth-child for clarity) */
+    .server-title .word:nth-child(1){animation-delay:0s}
+    .server-title .word:nth-child(2){animation-delay:-1.5s}
+    .server-title .word:nth-child(3){animation-delay:-3s}
+    .server-title .word:nth-child(4){animation-delay:-4.5s}
 
-        .timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
+    /* Respect user preference to reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .server-title .word,
+      .server-title { animation: none !important; color: var(--gold) !important; }
+    }
 
-        .time-box {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 15px 10px;
-            border-radius: 10px;
-            min-width: 80px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-            border-bottom: 2px solid var(--accent-green);
-        }
+    h2{
+      margin-top:8px;
+      margin-bottom:22px;
+      color:var(--green);
+      font-size:1.05rem;
+      text-transform:uppercase;
+      letter-spacing:1.6px;
+      text-shadow:1px 1px 0 #000;
+    }
 
-        .time-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            display: block;
-            color: #ffffff;
-        }
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      padding:28px;
+      box-shadow:0 10px 30px var(--accent-shadow);
+      border:2px solid var(--gold);
+    }
 
-        .time-label {
-            font-size: 0.8rem;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-            display: block;
-        }
+    .timer{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
 
-        .info-text {
-            font-size: 0.95rem;
-            color: var(--muted-text);
-            line-height: 1.5;
-            margin-top: 20px;
-        }
-    </style>
+    .time-box{
+      background: rgba(0,0,0,.22);
+      min-width:72px;
+      padding:12px 10px;
+      border-radius:10px;
+      border-bottom:2px solid var(--green);
+    }
+
+    .time-number{
+      font-size:2.1rem;
+      font-weight:700;
+      line-height:1;
+      display:block;
+      color:var(--text);
+    }
+
+    .time-label{
+      display:block;
+      margin-top:6px;
+      font-size:.78rem;
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .info{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.5;
+      margin-top:12px;
+    }
+
+    .meta-row{
+      margin-top:14px;
+      font-size:.88rem;
+      color:var(--muted);
+      display:flex;
+      justify-content:center;
+      gap:16px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    /* Responsiveness */
+    @media (max-width:420px){
+      .time-number{font-size:1.6rem}
+      .time-box{min-width:60px;padding:10px}
+      header h1{font-size:1.6rem}
+    }
+  </style>
 </head>
 <body>
+  <main class="container">
+    <header role="banner" aria-labelledby="page-title">
+      <h1 id="page-title">
+        <span class="server-title" aria-hidden="true">
+          <span class="word">Tri's</span>
+          <span class="word">Shape</span>
+          <span class="word">Squad</span>
+          <span class="word">SMP</span>
+        </span>
+        <span class="sr-only" style="position:absolute;left:-9999px;">Tri's Shape Squad SMP</span>
+      </h1>
+      <h2>Season 3 Launch Countdown</h2>
+    </header>
 
-    <div class="container">
-        <!-- Title text splits every word to let colors ripple sequentially -->
-        <div class="server-title">
-            <span class="word-1">Tri's</span> 
-            &nbsp;
-            <span class="word-2">Shape</span> 
-            &nbsp;
-            <span class="word-3">Squad</span> 
-            &nbsp;
-            <span class="word-4">SMP</span>
+    <section class="card" aria-labelledby="countdown-heading">
+      <h3 id="countdown-heading" class="sr-only">Countdown to Season 3 launch</h3>
+
+      <!-- Countdown boxes: visible numbers + aria-live for screen readers -->
+      <div class="timer" id="launch-timer" aria-live="polite" aria-atomic="true">
+        <div class="time-box" role="group" aria-label="Days remaining">
+          <span class="time-number" id="days">00</span>
+          <span class="time-label">Days</span>
         </div>
-        <h2>Season 3 Launch Countdown</h2>
-
-        <div class="countdown-card">
-            <div class="timer" id="launch-timer">
-                <div class="time-box"><span class="time-number" id="days">00</span><span class="time-label">Days</span></div>
-                <div class="time-box"><span class="time-number" id="hours">00</span><span class="time-label">Hours</span></div>
-                <div class="time-box"><span class="time-number" id="mins">00</span><span class="time-label">Mins</span></div>
-                <div class="time-box"><span class="time-number" id="secs">00</span><span class="time-label">Secs</span></div>
-            </div>
-            <div class="info-text">
-                Get ready for the Discord Stage stream and a brand new year-long adventure!
-            </div>
+        <div class="time-box" role="group" aria-label="Hours remaining">
+          <span class="time-number" id="hours">00</span>
+          <span class="time-label">Hours</span>
         </div>
-    </div>
+        <div class="time-box" role="group" aria-label="Minutes remaining">
+          <span class="time-number" id="mins">00</span>
+          <span class="time-label">Mins</span>
+        </div>
+        <div class="time-box" role="group" aria-label="Seconds remaining">
+          <span class="time-number" id="secs">00</span>
+          <span class="time-label">Secs</span>
+        </div>
+      </div>
 
-    <script>
-        const launchTimestamp = 1785630600 * 1000; 
+      <p class="info">Get ready for the Discord Stage stream and a brand new year-long adventure!</p>
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = launchTimestamp - now;
+      <div class="meta-row" aria-hidden="false">
+        <div id="launch-time-label">Launch time: <time id="launch-time" datetime="">—</time></div>
+        <div id="tz-label">Your timezone: <span id="tz-name">—</span></div>
+      </div>
+    </section>
+  </main>
 
-            if (difference <= 0) {
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('mins').innerText = "00";
-                document.getElementById('secs').innerText = "00";
-                return;
-            }
+  <script>
+    // ====== Configure your launch time here (ISO 8601 recommended) ======
+    // Example: '2026-10-01T18:00:00Z' (UTC) or '2026-10-01T11:00:00-07:00' (local offset)
+    const LAUNCH_ISO = '2026-10-01T18:00:00Z';
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    // Cache DOM elements for performance
+    const elDays = document.getElementById('days');
+    const elHours = document.getElementById('hours');
+    const elMins = document.getElementById('mins');
+    const elSecs = document.getElementById('secs');
+    const elLaunchTime = document.getElementById('launch-time');
+    const elTzName = document.getElementById('tz-name');
 
-            document.getElementById('days').innerText = days.toString().padStart(2, '0');
-            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-            document.getElementById('mins').innerText = minutes.toString().padStart(2, '0');
-            document.getElementById('secs').innerText = seconds.toString().padStart(2, '0');
+    // Parse the launch time safely
+    const launchDate = new Date(LAUNCH_ISO);
+    if (isNaN(launchDate)) {
+      // Fallback: if the configured date is invalid, show a message and stop updates
+      elLaunchTime.textContent = 'Invalid launch date configured';
+      console.error('Invalid LAUNCH_ISO:', LAUNCH_ISO);
+    } else {
+      // Fill the <time> element (human readable + machine readable)
+      elLaunchTime.dateTime = launchDate.toISOString();
+      elLaunchTime.textContent = launchDate.toLocaleString(undefined, {
+        year:'numeric', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short'
+      });
+
+      // Show user's timezone
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time';
+      elTzName.textContent = tz;
+
+      // Update loop (1s). Using setInterval is fine for a 1s tick; caching nodes avoids repeated lookups.
+      function updateCountdown(){
+        const now = Date.now();
+        let diff = launchDate.getTime() - now;
+
+        if (diff <= 0) {
+          // When reached, show zeros and optionally trigger an event overlay
+          elDays.textContent = '00';
+          elHours.textContent = '00';
+          elMins.textContent = '00';
+          elSecs.textContent = '00';
+          // Optionally: clearInterval(timerId);
+          return;
         }
 
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= days * (1000 * 60 * 60 * 24);
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hours * (1000 * 60 * 60);
+        const minutes = Math.floor(diff / (1000 * 60));
+        diff -= minutes * (1000 * 60);
+        const seconds = Math.floor(diff / 1000);
+
+        // Pad numbers to 2 digits (days can be larger)
+        elDays.textContent = String(days).padStart(2,'0');
+        elHours.textContent = String(hours).padStart(2,'0');
+        elMins.textContent = String(minutes).padStart(2,'0');
+        elSecs.textContent = String(seconds).padStart(2,'0');
+      }
+
+      updateCountdown();
+      const timerId = setInterval(updateCountdown, 1000);
+    }
+  </script>
 </body>
 </html>
