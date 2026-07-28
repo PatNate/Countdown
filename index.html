@@ -138,17 +138,6 @@
       margin-top:12px;
     }
 
-    .meta-row{
-      margin-top:14px;
-      font-size:.88rem;
-      color:var(--muted);
-      display:flex;
-      justify-content:center;
-      gap:16px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-
     /* Responsiveness */
     @media (max-width:420px){
       .time-number{font-size:1.6rem}
@@ -195,55 +184,42 @@
         </div>
       </div>
 
-      <div class="meta-row" aria-hidden="false">
-        <div id="launch-time-label">Launch time: <time id="launch-time" datetime="">—</time></div>
-        <div id="tz-label">Your timezone: <span id="tz-name">—</span></div>
-      </div>
+      <!-- Removed launch time and timezone display per request: only show the countdown -->
+      <div class="info" aria-hidden="true">Get ready for the Discord Stage stream and a brand new year-long adventure!</div>
     </section>
   </main>
 
   <script>
     // ====== Configure your launch time here (ISO 8601 recommended) ======
-    // Example: '2026-10-01T18:00:00Z' (UTC) or '2026-10-01T11:00:00-07:00' (local offset)
-    const LAUNCH_ISO = '2026-10-01T18:00:00Z';
+    // Using local ISO (no timezone suffix) so the time is interpreted in the user's local timezone by the Date parser.
+    // Requested: August 1st at 17:30 (year 2026)
+    const LAUNCH_ISO = '2026-08-01T17:30:00';
 
     // Cache DOM elements for performance
     const elDays = document.getElementById('days');
     const elHours = document.getElementById('hours');
     const elMins = document.getElementById('mins');
     const elSecs = document.getElementById('secs');
-    const elLaunchTime = document.getElementById('launch-time');
-    const elTzName = document.getElementById('tz-name');
 
     // Parse the launch time safely
     const launchDate = new Date(LAUNCH_ISO);
     if (isNaN(launchDate)) {
-      // Fallback: if the configured date is invalid, show a message and stop updates
-      elLaunchTime.textContent = 'Invalid launch date configured';
+      // Fallback: if the configured date is invalid, show zeros and stop updates
+      elDays.textContent = '00';
+      elHours.textContent = '00';
+      elMins.textContent = '00';
+      elSecs.textContent = '00';
       console.error('Invalid LAUNCH_ISO:', LAUNCH_ISO);
     } else {
-      // Fill the <time> element (human readable + machine readable)
-      elLaunchTime.dateTime = launchDate.toISOString();
-      elLaunchTime.textContent = launchDate.toLocaleString(undefined, {
-        year:'numeric', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZoneName:'short'
-      });
-
-      // Show user's timezone
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time';
-      elTzName.textContent = tz;
-
-      // Update loop (1s). Using setInterval is fine for a 1s tick; caching nodes avoids repeated lookups.
       function updateCountdown(){
         const now = Date.now();
         let diff = launchDate.getTime() - now;
 
         if (diff <= 0) {
-          // When reached, show zeros and optionally trigger an event overlay
           elDays.textContent = '00';
           elHours.textContent = '00';
           elMins.textContent = '00';
           elSecs.textContent = '00';
-          // Optionally: clearInterval(timerId);
           return;
         }
 
@@ -255,7 +231,6 @@
         diff -= minutes * (1000 * 60);
         const seconds = Math.floor(diff / 1000);
 
-        // Pad numbers to 2 digits (days can be larger)
         elDays.textContent = String(days).padStart(2,'0');
         elHours.textContent = String(hours).padStart(2,'0');
         elMins.textContent = String(minutes).padStart(2,'0');
@@ -263,7 +238,7 @@
       }
 
       updateCountdown();
-      const timerId = setInterval(updateCountdown, 1000);
+      setInterval(updateCountdown, 1000);
     }
   </script>
 </body>
