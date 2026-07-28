@@ -8,7 +8,8 @@
         :root {
             --bg-color: #1a1a2e;
             --card-bg: #16213e;
-            --accent-color: #4e9f3d;
+            --accent-gold: #ffaa00; /* Server Gold */
+            --accent-green: #55ff55; /* Admin Green */
             --text-color: #ffffff;
             --muted-text: #b0b0b0;
         }
@@ -28,24 +29,48 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
         }
 
-        h1 {
-            color: var(--text-color);
-            margin-bottom: 5px;
-            font-size: 2.2rem;
+        /* Animated Title Setup */
+        .server-title {
+            font-size: 2.6rem;
+            font-weight: bold;
             letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 0px #000000;
+            display: inline-block;
         }
 
+        .server-title span {
+            display: inline-block;
+            animation: serverColorCycle 8s linear infinite;
+        }
+
+        /* Smooth continuous cycle matching the image sequence */
+        @keyframes serverColorCycle {
+            0%, 100% { color: #ff5555; }  /* Red */
+            25%      { color: #ffaa00; }  /* Gold/Orange */
+            50%      { color: #ffff55; }  /* Yellow */
+            75%      { color: #55ff55; }  /* Green */
+        }
+
+        /* Offsetting each word's animation to create a flowing gradient effect */
+        .word-1 span { animation-delay: 0s; }
+        .word-2 span { animation-delay: -1.5s; }
+        .word-3 span { animation-delay: -3s; }
+        .word-4 span { animation-delay: -4.5s; }
+
         h2 {
-            color: var(--accent-color);
+            color: var(--accent-green);
             font-size: 1.3rem;
-            margin-top: 0;
+            margin-top: 5px;
             margin-bottom: 30px;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0px #000000;
         }
 
         .countdown-card {
@@ -53,7 +78,7 @@
             border-radius: 16px;
             padding: 35px 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            border: 2px solid var(--accent-color);
+            border: 2px solid var(--accent-gold);
         }
 
         .timer {
@@ -69,6 +94,7 @@
             border-radius: 10px;
             min-width: 80px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+            border-bottom: 2px solid var(--accent-green);
         }
 
         .time-number {
@@ -80,7 +106,7 @@
 
         .time-label {
             font-size: 0.8rem;
-            color: var(--muted-text);
+            color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 4px;
@@ -98,7 +124,16 @@
 <body>
 
     <div class="container">
-        <h1>Tri’s Shape Squad SMP</h1>
+        <!-- Title text splits every word to let colors ripple sequentially -->
+        <div class="server-title">
+            <span class="word-1">Tri's</span> 
+            &nbsp;
+            <span class="word-2">Shape</span> 
+            &nbsp;
+            <span class="word-3">Squad</span> 
+            &nbsp;
+            <span class="word-4">SMP</span>
+        </div>
         <h2>Season 3 Launch Countdown</h2>
 
         <div class="countdown-card">
@@ -115,7 +150,6 @@
     </div>
 
     <script>
-        // Exact Season 3 target timestamp from your announcement (converted to milliseconds)
         const launchTimestamp = 1785630600 * 1000; 
 
         function updateCountdown() {
@@ -141,7 +175,6 @@
             document.getElementById('secs').innerText = seconds.toString().padStart(2, '0');
         }
 
-        // Run immediately and update every second
         updateCountdown();
         setInterval(updateCountdown, 1000);
     </script>
