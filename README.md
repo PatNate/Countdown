@@ -1,2 +1,2 @@
 # Countdown
-countdown to somthing
+countdown to something
